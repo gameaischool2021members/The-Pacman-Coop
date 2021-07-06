@@ -12,56 +12,48 @@ public class Pacman : MonoBehaviour
 
     public List<GameObject> GetPacmen()
     {
-        var pacmen = levelsGenerator.liPacmen;
-        
-        foreach (GameObject p in pacmen)
-            if (p == null)
-                pacmen.Remove(p);
-
-        return pacmen;
+        return RemoveNullsList(levelsGenerator.liPacmen);
     }
 
     public List<GameObject> GetGhosts()
     {
-        var ghosts = levelsGenerator.fantomes;
-        
-        foreach (GameObject g in ghosts)
-            if (g == null)
-                ghosts.Remove(g);
-
-        return ghosts;
+        return RemoveNullsList(levelsGenerator.fantomes);
     }
 
     public List<GameObject> GetPellets()
     {
-        var pellets = levelsGenerator.liPacgomme;
+        return RemoveNullsList(levelsGenerator.liPacgomme);
 
-        foreach (GameObject p in pellets)
-            if (p == null)
-                pellets.Remove(p);
-
-        return pellets;
     }
 
     public List<GameObject> GetLargePellets()
     {
-        var big_pellets = levelsGenerator.liSpPacgomme;
-        
-        foreach (GameObject p in big_pellets)
-            if (p == null)
-                big_pellets.Remove(p);
-
-        return big_pellets;
+        return RemoveNullsList(levelsGenerator.liSpPacgomme); 
     }
 
     public List<Transform> GetWalls()
     {
-        var big_pellets = new List<Transform>(levelsGenerator.wallParent.GetComponentsInChildren<Transform>());
+        var walls = new List<Transform>(levelsGenerator.wallParent.GetComponentsInChildren<Transform>());
         
-        foreach (Transform p in big_pellets)
+        foreach (Transform p in walls)
             if (p == null)
-                big_pellets.Remove(p);
+                walls.Remove(p);
 
-        return big_pellets;
+        return walls;
     }
+
+    private List<GameObject> RemoveNullsList(List<GameObject> lst)
+    {
+        int count = lst.Count;
+
+        for (int i = count - 1; i >= 0; i--)
+        {
+            if (lst[i] == null)
+            {
+                lst.RemoveAt(i);
+            }
+        }
+        return lst;
+    }
+
 }
