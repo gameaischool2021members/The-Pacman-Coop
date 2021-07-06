@@ -6,7 +6,7 @@ public class QuitOnClick : MonoBehaviour
 
     public void Quit()
     {
-		PlayerPrefs.DeleteAll ();
+		// PlayerPrefs.DeleteAll ();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
