@@ -1,3 +1,8 @@
 Library/*
 UserSettings/*
 .vscode/
+Logs
+Temp
+Logs/AssetImportWorker0-prev.log
+*.log
+The-Pacman-Coop.sln
