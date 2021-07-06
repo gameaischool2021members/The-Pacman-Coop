@@ -14,7 +14,7 @@ public class LevelBackGround : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         cible = GameObject.Find("LevelsGenerator").GetComponent<LevelsGenerator>().tileMatrix;
-        this.transform.position = new Vector3(cible.position.x + (((cible.largeur-1) * 0.24f) / 2), cible.position.y - (((cible.hauteur - 1) * 0.24f) / 2));
-        this.transform.localScale = new Vector2(cible.largeur, cible.hauteur);
+        this.transform.position = new Vector3(cible.position.x + (((cible.width-1) * 0.24f) / 2), cible.position.y - (((cible.height - 1) * 0.24f) / 2));
+        this.transform.localScale = new Vector2(cible.width, cible.height);
     }
 }

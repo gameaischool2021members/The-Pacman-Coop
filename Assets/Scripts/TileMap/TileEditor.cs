@@ -5,15 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TileEditor : MonoBehaviour {
+public class TileEditor : MonoBehaviour
+{
 
     protected TileMatrix tileMat;
-    public int hauteur;
-    public int largeur;
-    public Text nbColonnes;
-    public Text nbLignes;
+    public int height;
+    public int width;
+    public Text nbColumns;
+    public Text nbLines;
     public List<string> MapsNames;
-    
+
     protected string tilesPath = "Sprites/Default/tiles";
     //protected TileMatrix tempTileMat;
 
@@ -56,7 +57,7 @@ public class TileEditor : MonoBehaviour {
     Vector3 newCam;
 
     /// <summary>
-    /// gestion curseur souris
+    /// mouse cursor management
     /// </summary>
     protected GameObject cursorSprite;
     private Vector3 mousePosition;
@@ -64,8 +65,8 @@ public class TileEditor : MonoBehaviour {
 
     public void UpdateText()
     {
-        nbColonnes.text = "Colonne: " + tileMat.largeur;
-        nbLignes.text = "Ligne: " + tileMat.hauteur;
+        nbColumns.text = "Column: " + tileMat.width;
+        nbLines.text = "Line: " + tileMat.height;
     }
 
     public TileMatrix tileMatrix
@@ -79,63 +80,65 @@ public class TileEditor : MonoBehaviour {
     public void MakeLvlFitOnScreen()
     {
         float ScreenSize = Screen.height;
-        float HauteurNiveau = tileMat.hauteur;
+        float HeightLevel = tileMat.height;
         Camera.main.orthographicSize = 5;
 
-        if (HauteurNiveau >= 42)
+        if (HeightLevel >= 42)
         {
-            while (HauteurNiveau >= 42)
+            while (HeightLevel >= 42)
             {
-                HauteurNiveau -= 8.4f;
+                HeightLevel -= 8.4f;
                 Camera.main.orthographicSize++;
             }
             Camera.main.orthographicSize++;
         }
         else
         {
-            while (HauteurNiveau < 42)
+            while (HeightLevel < 42)
             {
-                HauteurNiveau += 8.4f;
+                HeightLevel += 8.4f;
                 Camera.main.orthographicSize--;
             }
-            Camera.main.orthographicSize+=2;
+            Camera.main.orthographicSize += 2;
         }
     }
 
-    public void CenterCamera()
+    public void CentreCamera()
     {
-        if(CameraInitPos != Vector3.zero)
+        if (CameraInitPos != Vector3.zero)
         {
-            Camera.main.transform.position = new Vector3(CameraInitPos.x + ((tileMat.largeur - 1) * 0.24f) / 2, CameraInitPos.y - ((tileMat.hauteur - 1) * 0.24f) / 2, CameraInitPos.z);
+            Camera.main.transform.position = new Vector3(CameraInitPos.x + ((tileMat.width - 1) * 0.24f) / 2, CameraInitPos.y - ((tileMat.height - 1) * 0.24f) / 2, CameraInitPos.z);
             MakeLvlFitOnScreen();
         }
         else
         {
-            Debug.Log("Camera non initialisé");
+            Debug.Log("Camera not initialized");
         }
-        if(tileMat.hauteur == 0 && tileMat.largeur == 0)
+        if (tileMat.height == 0 && tileMat.width == 0)
         {
-            Debug.Log("TileMatrixe non initialisé");
+            Debug.Log("TileMatrix not initialized");
         }
     }
 
-    void printList(List<int> L){
-        for(int i = 0; i < L.Count; i++)
+    void printList(List<int> L)
+    {
+        for (int i = 0; i < L.Count; i++)
         {
             print(i + " : " + L[i]);
         }
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         CameraInitSize = Camera.main.orthographicSize;
         CameraInitPos = Camera.main.transform.position;
-        tileMat = new TileMatrix(hauteur, largeur, transform.position, "Sprites/Default/tiles", 10);
+        tileMat = new TileMatrix(height, width, transform.position, "Sprites/Default/tiles", 10);
         //tileMat = new TileMatrix("Sprites/Default/tiles", transform.position);
         //loadLvl("test");
         UpdateText();
         initCursor();
-        CenterCamera();
+        CentreCamera();
     }
 
     public void initCursor()
@@ -149,7 +152,8 @@ public class TileEditor : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         InteractionManager();
     }
 
@@ -159,8 +163,8 @@ public class TileEditor : MonoBehaviour {
         {
             tileMat.destroy();
         }
-        tileMat = new TileMatrix(hauteur, largeur, transform.position, "Sprites/Default/tiles", 10);
-        CenterCamera();
+        tileMat = new TileMatrix(height, width, transform.position, "Sprites/Default/tiles", 10);
+        CentreCamera();
         UpdateText();
         isPlaying = false;
     }
@@ -180,7 +184,7 @@ public class TileEditor : MonoBehaviour {
         mousePosition = new Vector2(Input.mousePosition.x + 22, Input.mousePosition.y - 28);
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         cursorSprite.transform.position = Vector2.Lerp(cursorSprite.transform.position, mousePosition, moveSpeed);
-        cursorSprite.transform.localScale = new Vector2(Camera.main.orthographicSize/CameraInitSize, Camera.main.orthographicSize / CameraInitSize) *1.5f;
+        cursorSprite.transform.localScale = new Vector2(Camera.main.orthographicSize / CameraInitSize, Camera.main.orthographicSize / CameraInitSize) * 1.5f;
     }
 
     void InteractionManager()
@@ -201,16 +205,17 @@ public class TileEditor : MonoBehaviour {
 
     public void toolManager()
     {
-        
+
         if (rectangularSelection || !Input.GetMouseButton(0))
         {
-            if (Input.GetMouseButtonDown(1)) {
+            if (Input.GetMouseButtonDown(1))
+            {
                 oldCam = Camera.main.transform.position;
             }
             if (Input.GetMouseButtonUp(1))
             {
                 newCam = Camera.main.transform.position;
-                if(oldCam != newCam)
+                if (oldCam != newCam)
                 {
                     drag = true;
                 }
@@ -328,7 +333,7 @@ public class TileEditor : MonoBehaviour {
 
             tileMat.load("Maps/" + mapName + ".map");
             UpdateText();
-            CenterCamera();
+            CentreCamera();
         }
     }
 
@@ -343,14 +348,14 @@ public class TileEditor : MonoBehaviour {
             MapsNames.Remove(mapName);
         }
 
-        foreach(string s in MapsNames)
+        foreach (string s in MapsNames)
         {
             print(s);
         }
         print("-");
     }
 
-    //ici pour jouer avec plusieurs cartes
+    // here to play with several cards
 
     public void playLvls(List<string> MapsNames)
     {
@@ -358,29 +363,29 @@ public class TileEditor : MonoBehaviour {
 
         foreach (string s in MapsNames)
         {
-            allMaps += s +".map"+ "/";
+            allMaps += s + ".map" + "/";
         }
         PlayerPrefs.SetInt("num", 0);
-        PlayerPrefs.SetString("lien", allMaps);
-        SceneManager.LoadScene("Jouer");
+        PlayerPrefs.SetString("link", allMaps);
+        SceneManager.LoadScene("Play");
     }
 
     public void playLvl()
     {
-		PlayerPrefs.SetString("lien", "Maps/" + MapsNames[0] + ".map");
+        PlayerPrefs.SetString("link", "Maps/" + MapsNames[0] + ".map");
         print(MapsNames[0]);
-        SceneManager.LoadScene("Jouer");
+        SceneManager.LoadScene("Play");
         /*
         if (!isPlaying)
         {
             isPlaying = true;
             allowMouseInteraction = false;
             tileMat.save("playMap.temp", false);
-            //pathFindableGrid = new PathFind.Grid(tileMat.largeur, tileMat.hauteur, tileMat.TileMatrixToPathFindableMatrix());
+            //pathFindableGrid = new PathFind.Grid(tileMat.width, tileMat.height, tileMat.TileMatrixToPathFindableMatrix());
 
-            for (int i = 0; i < tileMat.hauteur; i++)
+            for (int i = 0; i < tileMat.height; i++)
             {
-                for (int j = 0; j < tileMat.largeur; j++)
+                for (int j = 0; j < tileMat.width; j++)
                 {
                     if (tileMat.getTileCodeAt(i, j) == 0 || tileMat.getTileCodeAt(i, j) == 10)
                     {
@@ -447,9 +452,9 @@ public class TileEditor : MonoBehaviour {
 
     public void RemoveRow()
     {
-        if (allowMouseInteraction && tileMat.hauteur > 0)
+        if (allowMouseInteraction && tileMat.height > 0)
         {
-            tileMat.removeLigneAt(tileMat.hauteur - 1);
+            tileMat.removeLineAt(tileMat.height - 1);
             UpdateText();
         }
     }
@@ -465,9 +470,9 @@ public class TileEditor : MonoBehaviour {
 
     public void RemoveColumn()
     {
-        if (allowMouseInteraction && tileMat.largeur > 0)
+        if (allowMouseInteraction && tileMat.width > 0)
         {
-            tileMat.removeColonneAt(tileMat.largeur - 1);
+            tileMat.removeColumnAt(tileMat.width - 1);
             UpdateText();
         }
     }
@@ -698,7 +703,7 @@ public class TileEditor : MonoBehaviour {
         loadSpriteIn(cursorSprite, spriteValOnClick);
     }
 
-    public void SelectPorte()
+    public void SelectDoor()
     {
         spriteValOnClick = 7;
         rotation360 = false;

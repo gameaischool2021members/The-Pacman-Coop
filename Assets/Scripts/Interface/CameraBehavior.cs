@@ -57,7 +57,7 @@ public class CameraBehavior : MonoBehaviour {
                 Camera.main.transform.position = Origin - Diference;
             }
             /*
-            //reset la camera avec un click gauche
+            //reset the camera with a left click
             if (Input.GetMouseButton(1))
             {
                 Camera.main.transform.position = ResetCamera;

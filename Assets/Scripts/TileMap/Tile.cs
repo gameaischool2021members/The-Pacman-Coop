@@ -13,10 +13,10 @@ public class Tile : MonoBehaviour{
         float posX = transform.position.x;
         float posY = transform.position.y;
 
-        float largeur = GetComponent<SpriteRenderer>().sprite.textureRect.width / 100;
-        float hauteur = GetComponent<SpriteRenderer>().sprite.textureRect.height / 100;
+        float width = GetComponent<SpriteRenderer>().sprite.textureRect.width / 100;
+        float height = GetComponent<SpriteRenderer>().sprite.textureRect.height / 100;
 
-        transform.position = new Vector2(posX + (x * largeur), posY + (y * hauteur));
+        transform.position = new Vector2(posX + (x * width), posY + (y * height));
         i += -y;
         j += x;
     }
