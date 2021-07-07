@@ -16,7 +16,7 @@ public class ButtonScript : MonoBehaviour
         }
         else
         {
-            mytext.text = "Jouer";
+            mytext.text = "Play";
         }
     }
 }

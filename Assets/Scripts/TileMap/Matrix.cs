@@ -202,7 +202,7 @@ public class Matrix
     /// </summary>
     /// <param name="i"> Corresponds to line N°i </param>
     /// <param name="val"> New value on the entire line i </param>
-    public void setLigne(int i, int val)
+    public void setLine(int i, int val)
     {
         int j = 0;
         while (j < width())
@@ -270,16 +270,16 @@ public class Matrix
 
         System.IO.StreamWriter fichier = System.IO.File.AppendText(path);
 
-        string ligne = "";
+        string line = "";
 
         for (int i = 0; i < height(); i++)
         {
             for (int j = 0; j < width(); j++)
             {
-                ligne += this[i, j] + " ";
+                line += this[i, j] + " ";
             }
-            fichier.WriteLine(ligne);
-            ligne = "";
+            fichier.WriteLine(line);
+            line = "";
         }
         fichier.WriteLine("-");
         fichier.Close();

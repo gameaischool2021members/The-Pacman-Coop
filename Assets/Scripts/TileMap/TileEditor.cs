@@ -22,7 +22,7 @@ public class TileEditor : MonoBehaviour
     protected bool allowMouseInteraction = true;
 
     /// <summary>
-    /// selection et rotation tiles
+    /// selection and rotation tiles
     /// </summary>
     protected int spriteValOnClick = 1;
     protected int selectedTile = 1;
@@ -328,7 +328,7 @@ public class TileEditor : MonoBehaviour
             PlayerPrefs.SetInt("Maps/" + mapName + ".map", 0);
             /*
             print(mapName);
-            SceneManager.LoadScene("Victoire");
+            SceneManager.LoadScene("Victory");
             */
 
             tileMat.load("Maps/" + mapName + ".map");
