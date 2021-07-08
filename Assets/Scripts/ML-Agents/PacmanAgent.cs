@@ -8,12 +8,11 @@ using Unity.MLAgents.Actuators;
 public class PacmanAgent : Agent
 {
     private Pacman API = null;
+    private TileMatrix M = null;
 
     [SerializeField]
     private Rigidbody2D pacmanBody = null;
     private float speed = 4.0f;
-
-    private Vector2 initialPosition;
 
     private float rewardWinning = 500.0f;
     private float rewardPellet = 10.0f;
@@ -23,31 +22,37 @@ public class PacmanAgent : Agent
     private float penaltyDefault = -10.0f;
 
     private float penaltyWall = -10.0f; //TODO: is it worth it? already penalty for changing state
-    private float rewardFruit = 150.0f; //TODO: cherries?
+    private float rewardFruit = 150.0f; //TODO: cherries? maybe its okay not to consider them!
 
     public string CollidedActionAgent { private get; set; } = "";
 
-    // Start is called before the first frame update
     void Start()
     {
-        API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
-        initialPosition = pacmanBody.transform.localPosition;
     }
 
     public override void OnEpisodeBegin()
     {
         //TODO: update positions of pacman and ghosts, restore pellets
+        if (API == null)
+        {
+            API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
+        }
+        //API.RestartLevel();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        if (API != null) {
-            //ghost
-            AddObservations(sensor, API.GetGhosts());
-            //pellets
-            AddObservations(sensor, API.GetPellets());
-            AddObservations(sensor, API.GetLargePellets());
+        if (API == null)
+        {
+            API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
         }
+
+        //ghost
+        AddObservations(sensor, API.GetGhosts());
+        //pellets
+        AddObservations(sensor, API.GetPellets());
+        AddObservations(sensor, API.GetLargePellets());
+        
         //player
         sensor.AddObservation(this.transform.localPosition);
 
@@ -81,50 +86,79 @@ public class PacmanAgent : Agent
         // Apply the action results to move the Agent
         pacmanBody.velocity = new Vector2((speed * directionX) * 0.24f, (speed * directionY) * 0.24f);
 
-        //TODO: pacman teleportation verify
-        if (API != null)
+        if (M == null)
         {
-            List<GameObject> pellets = API.GetPellets();
-            List<GameObject> largePellets = API.GetLargePellets();
+            M = GameObject.Find("LevelsGenerator").GetComponent<LevelsGenerator>().M;
+        }
 
-            //Pacman finished game - ate all the dots
-            if (pellets.Count == 0 && largePellets.Count == 0)
+        VerifyTeleportationMap();
+
+        if (API == null)
+        {
+            API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
+        }
+        List<GameObject> pellets = API.GetPellets();
+        List<GameObject> largePellets = API.GetLargePellets();
+
+        //Pacman finished game - ate all the dots
+        if (pellets.Count == 0 && largePellets.Count == 0)
+        {
+            SetReward(rewardWinning);
+            EndEpisode();
+        }
+        else
+        {
+            if (CollidedActionAgent == "pellet")
             {
-                SetReward(rewardWinning);
+                SetReward(rewardPellet); //consumed pellet
+                CollidedActionAgent = "";
+            }
+            else if (CollidedActionAgent == "largePellet")
+            {
+                SetReward(rewardLargePellet); //consumed large pellet
+                CollidedActionAgent = "";
+            }
+            else if (CollidedActionAgent == "ghostDead")
+            {
+                SetReward(rewardGhost); //captured ghost
+                CollidedActionAgent = "";
+            }
+            else if (CollidedActionAgent == "ghostAlive")
+            {
+                SetReward(penaltyGhost); //captured by ghost
+                CollidedActionAgent = "";
                 EndEpisode();
             }
             else
             {
-                if (CollidedActionAgent == "pellet")
-                {
-                    SetReward(rewardPellet); //consumed pellet
-                    CollidedActionAgent = "";
-                }
-                else if (CollidedActionAgent == "largePellet")
-                {
-                    SetReward(rewardLargePellet); //consumed large pellet
-                    CollidedActionAgent = "";
-                }
-                else if (CollidedActionAgent == "ghostDead")
-                {
-                    SetReward(rewardGhost); //captured ghost
-                    CollidedActionAgent = "";
-                }
-                else if (CollidedActionAgent == "ghostAlive")
-                {
-                    SetReward(penaltyGhost); //captured by ghost
-                    CollidedActionAgent = "";
-                    EndEpisode();
-                }
-                else
-                {
-                    SetReward(penaltyDefault); //state of game is changing
-                }
-
+                SetReward(penaltyDefault); //state of game is changing
             }
+
         }
     }
 
+    void VerifyTeleportationMap()
+    {
+        //Taken from deplacementPacman.cs
+        ///  permet la téléportation sur l'axe des x
+        if (transform.position.x > (M.largeur - 1) * 0.24f)
+        {
+            transform.position = new Vector2(0, transform.position.y);
+        }
+        if (transform.position.x < 0)
+        {
+            transform.position = new Vector2((M.largeur - 1) * 0.24f, transform.position.y);
+        }
+        ///  permet la téléportation sur l'axe des y
+        if (transform.position.y < -(M.hauteur - 1) * 0.24f)
+        {
+            transform.position = new Vector2(transform.position.x, 0);
+        }
+        if (transform.position.y > 0)
+        {
+            transform.position = new Vector2(transform.position.x, -(M.hauteur - 1) * 0.24f);
+        }
+    }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
