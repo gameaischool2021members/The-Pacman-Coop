@@ -81,13 +81,20 @@ public class GhostAgent : Agent
     {
         float speed = 4.0f;
 
-        float moveX = actions.ContinuousActions[0];
-        float moveY = actions.ContinuousActions[0];
+        int directionX = 0;
+        int directionY = 0;
 
+        //Get the action index for movement
+        int movement = actions.DiscreteActions[0];
+        // Look up the index in the movement action list:
+        if (movement == 1) { directionY = 1; }
+        else if (movement == 2) { directionY = -1; }
+        else if (movement == 3) { directionX = -1; }
+        else if (movement == 4) { directionX = 1; }
 
+ 
         // Apply the action results to move the Agent
-        ghostBody.velocity = new Vector2((speed * moveX) * 0.24f, (speed * moveY) * 0.24f);
-
+        ghostBody.velocity = new Vector2((speed * directionX) * 0.24f, (speed * directionY) * 0.24f);
     }
 
 
@@ -112,10 +119,7 @@ public class GhostAgent : Agent
             foreach (GameObject p in lst)
                 sensor.AddObservation(p.transform.localPosition);
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
+  
 
         if (CollidedActionAgent == "ghostDead")
         {
@@ -138,10 +142,7 @@ public class GhostAgent : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        ActionSegment<float> countinuousActionsOut = actionsOut.ContinuousActions;
-
-        countinuousActionsOut[0] = Input.GetAxisRaw("Horizontal");
-        countinuousActionsOut[1] = Input.GetAxisRaw("Vertical");
+        
 
     }
 }
