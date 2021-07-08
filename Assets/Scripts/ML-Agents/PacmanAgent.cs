@@ -22,11 +22,11 @@ public class PacmanAgent : Agent
     private float speed = 4.0f;
 
     private float rewardWinning = 500.0f;
-    private float rewardPellet = 10.0f;
-    private float rewardLargePellet = 100.0f;
-    private float rewardGhost = 200.0f;
-    private float penaltyGhost = -200.0f;
-    private float penaltyDefault = -10.0f;
+    private float rewardPellet = 100.0f;
+    private float rewardLargePellet = 150.0f;
+    private float rewardGhost = 250.0f;
+    private float penaltyGhost = -500.0f;
+    private float penaltyDefault = -1.0f;
 
     private float penaltyWall = -10.0f; //TODO: is it worth it? already penalty for changing state
     private float rewardFruit = 150.0f; //TODO: cherries? maybe its okay not to consider them!
@@ -64,7 +64,8 @@ public class PacmanAgent : Agent
 
          //update pacman pos
          this.transform.localPosition = initialPositionPacman;
-         //update ghosts pos
+
+         //TODO: bugsupdate ghosts pos
          List<GameObject> ghosts = API.GetGhosts();
 
          for (int i = 0; i < ghosts.Count; i++)
@@ -100,20 +101,27 @@ public class PacmanAgent : Agent
         //ghost + (2*4ghosts default)
         AddObservations(sensor, API.GetGhosts());
         //pellets
-        //AddObservations(sensor, API.GetPellets());
-        //AddObservations(sensor, API.GetLargePellets());
+        AddObservations(sensor, API.GetPellets(), true);
+        AddObservations(sensor, API.GetLargePellets(), true);
         
         //player +2
         sensor.AddObservation(this.transform.localPosition);
         //TODO: observations cant change
     }
 
-    void AddObservations(VectorSensor sensor, List<GameObject> lst)
+    void AddObservations(VectorSensor sensor, List<GameObject> lst, bool active = false)
     {
         if (lst != null)
         {
             foreach (GameObject p in lst)
+            {
                 sensor.AddObservation(p.transform.localPosition);
+                if (active)
+                {
+                    sensor.AddObservation(p.activeSelf);
+
+                }
+            }
         }
     }
     public override void OnActionReceived(ActionBuffers actions)
