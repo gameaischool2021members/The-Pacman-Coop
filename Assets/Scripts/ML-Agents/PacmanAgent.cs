@@ -70,8 +70,16 @@ public class PacmanAgent : Agent
 
          for (int i = 0; i < ghosts.Count; i++)
          {
-             ghosts[i].transform.localPosition = initialPositionGhosts[i];
-         }
+            ghosts[i].transform.localPosition = initialPositionGhosts[i];
+            DeplacementphantomeR r = ghosts[i].GetComponent<DeplacementphantomeR>();
+            if (r!=null) { r.Start(); }
+            DeplacementphantomeP p = ghosts[i].GetComponent<DeplacementphantomeP>();
+            if (p != null) { p.Start(); }
+            DeplacementphantomeJ j = ghosts[i].GetComponent<DeplacementphantomeJ>();
+            if (j != null) { j.Start(); }
+            DeplacementphantomeB b = ghosts[i].GetComponent<DeplacementphantomeB>();
+            if (b != null) { b.Start(); }
+        }
 
         //restore pellets
         List<GameObject> pellets = API.GetPellets();
