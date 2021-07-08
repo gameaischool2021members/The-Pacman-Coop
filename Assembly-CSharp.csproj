@@ -83,6 +83,7 @@
      <Compile Include="Assets\Interface\Scripts\ChangeColor.cs" />
      <Compile Include="Assets\Scripts\API\Pacman.cs" />
      <Compile Include="Assets\Scripts\ML-Agents\DummyAPITest.cs" />
+     <Compile Include="Assets\Scripts\ML-Agents\PacmanAgent.cs" />
      <None Include="Assets\Interface\Textures and Sprites\SF UI\Background\LICENSE.txt" />
      <None Include="Assets\Interface\Materials\UI-Default-No-Alpha.shader" />
      <None Include="Assets\Interface\Fonts\Jupiter\LICENSE.txt" />
