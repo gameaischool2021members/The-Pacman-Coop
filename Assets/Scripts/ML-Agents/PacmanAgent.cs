@@ -4,11 +4,18 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using UnityEngine.SceneManagement;
+
 
 public class PacmanAgent : Agent
 {
     private Pacman API = null;
     private TileMatrix M = null;
+
+    [SerializeField]
+    private GameObject pellet = null;
+    [SerializeField]
+    private GameObject largePellet = null;
 
     [SerializeField]
     private Rigidbody2D pacmanBody = null;
@@ -26,18 +33,61 @@ public class PacmanAgent : Agent
 
     public string CollidedActionAgent { private get; set; } = "";
 
-    void Start()
-    {
-    }
+    private List<Vector2> initialPositionGhosts = null;
 
-    public override void OnEpisodeBegin()
+    private Vector2 initialPositionPacman;
+
+    void Awake()
     {
-        //TODO: update positions of pacman and ghosts, restore pellets
+        
         if (API == null)
         {
             API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
         }
-        //API.RestartLevel();
+        initialPositionPacman = this.transform.localPosition;
+        
+        initialPositionGhosts = new List<Vector2>();
+        List<GameObject> ghosts = API.GetGhosts();
+        for (int i = 0; i < ghosts.Count; i++)
+        {
+            initialPositionGhosts.Add(ghosts[i].transform.localPosition);
+        }
+
+    }
+
+    public override void OnEpisodeBegin()
+    {
+         if (API == null)
+         {
+             API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
+         }
+
+         //update pacman pos
+         this.transform.localPosition = initialPositionPacman;
+         //update ghosts pos
+         List<GameObject> ghosts = API.GetGhosts();
+
+         for (int i = 0; i < ghosts.Count; i++)
+         {
+             ghosts[i].transform.localPosition = initialPositionGhosts[i];
+         }
+
+        //restore pellets
+        List<GameObject> pellets = API.GetPellets();
+
+        for (int i = 0; i < pellets.Count; i++)
+         {
+            pellets[i].SetActive(true);
+         }
+
+        //restore large pellets
+        List<GameObject> largePellets = API.GetLargePellets();
+
+        for (int i = 0; i < largePellets.Count; i++)
+        {
+            largePellets[i].SetActive(true);
+        }
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -47,16 +97,15 @@ public class PacmanAgent : Agent
             API = GameObject.Find("ML-Agents").GetComponent<Pacman>();
         }
 
-        //ghost
+        //ghost + (2*4ghosts default)
         AddObservations(sensor, API.GetGhosts());
         //pellets
-        AddObservations(sensor, API.GetPellets());
-        AddObservations(sensor, API.GetLargePellets());
+        //AddObservations(sensor, API.GetPellets());
+        //AddObservations(sensor, API.GetLargePellets());
         
-        //player
+        //player +2
         sensor.AddObservation(this.transform.localPosition);
-
-        //TODO: update size observations in gameobject?
+        //TODO: observations cant change
     }
 
     void AddObservations(VectorSensor sensor, List<GameObject> lst)
