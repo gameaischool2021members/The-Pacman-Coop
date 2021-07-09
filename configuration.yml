@@ -5,9 +5,9 @@ behaviors:
     hyperparameters:
       batch_size: 1024
       buffer_size: 10240
-      learning_rate: 0.1
+      learning_rate: 0.0003
       beta: 0.005
-      epsilon: 0.2
+      epsilon: 0.1
       lambd: 0.95
       num_epoch: 3
       learning_rate_schedule: linear
@@ -30,11 +30,11 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
     init_path: null
-    keep_checkpoints: 5
-    checkpoint_interval: 500000
-    max_steps: 500000
+    keep_checkpoints: 50
+    checkpoint_interval: 10000
+    max_steps: 5000000000
     time_horizon: 64
-    summary_freq: 50000
+    summary_freq: 50
     threaded: false
     self_play: null
     behavioral_cloning: null
@@ -48,7 +48,7 @@ engine_settings:
   width: 84
   height: 84
   quality_level: 5
-  time_scale: 20
+  time_scale: 200
   target_frame_rate: -1
   capture_frame_rate: 60
   no_graphics: false

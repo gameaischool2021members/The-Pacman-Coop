@@ -22,8 +22,8 @@ public class PacmanAgent : Agent
     private float speed = 4.0f;
 
     private float rewardWinning = 500.0f;
-    private float rewardPellet = 100.0f;
-    private float rewardLargePellet = 150.0f;
+    private float rewardPellet = 150.0f;
+    private float rewardLargePellet = 200.0f;
     private float rewardGhost = 250.0f;
     private float penaltyGhost = -500.0f;
     private float penaltyDefault = -1.0f;
@@ -108,13 +108,40 @@ public class PacmanAgent : Agent
 
         //ghost + (2*4ghosts default)
         AddObservations(sensor, API.GetGhosts());
+        MinObservation(sensor, API.GetGhosts());
+
         //pellets
-        AddObservations(sensor, API.GetPellets(), true);
-        AddObservations(sensor, API.GetLargePellets(), true);
+        AddObservations(sensor, API.GetPellets());
+        AddObservations(sensor, API.GetLargePellets());
+
+        MinObservation(sensor, API.GetPellets());
+        MinObservation(sensor, API.GetLargePellets());
         
         //player +2
         sensor.AddObservation(this.transform.localPosition);
+        sensor.AddObservation(this.transform.localRotation);
         //TODO: observations cant change
+    }
+
+    void MinObservation(VectorSensor sensor, List<GameObject> lst)
+    {
+        float min = float.MaxValue;
+        Vector2 dir = Vector2.zero;
+        foreach (GameObject p in lst)
+        {
+            if (!p.activeSelf)
+                continue;
+
+            float distance = (p.transform.position - transform.position).magnitude;
+            if (distance < min)
+            {
+                min = distance;
+                dir = (p.transform.position - transform.position).normalized;
+            }
+        }
+
+        sensor.AddObservation(min);
+        sensor.AddObservation(dir);
     }
 
     void AddObservations(VectorSensor sensor, List<GameObject> lst, bool active = false)
@@ -123,15 +150,18 @@ public class PacmanAgent : Agent
         {
             foreach (GameObject p in lst)
             {
-                sensor.AddObservation(p.transform.localPosition);
+                // sensor.AddObservation(p.transform.localPosition);
+                sensor.AddObservation((transform.position - p.transform.position).magnitude);
+                sensor.AddObservation((p.transform.position - transform.position).normalized);
                 if (active)
                 {
+                    sensor.AddObservation(p.transform.position - transform.position);
                     sensor.AddObservation(p.activeSelf);
-
                 }
             }
         }
     }
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         int directionX = 0;
@@ -205,7 +235,7 @@ public class PacmanAgent : Agent
     void VerifyTeleportationMap()
     {
         //Taken from deplacementPacman.cs
-        ///  permet la téléportation sur l'axe des x
+        ///  permet la tï¿½lï¿½portation sur l'axe des x
         if (transform.position.x > (M.largeur - 1) * 0.24f)
         {
             transform.position = new Vector2(0, transform.position.y);
@@ -214,7 +244,7 @@ public class PacmanAgent : Agent
         {
             transform.position = new Vector2((M.largeur - 1) * 0.24f, transform.position.y);
         }
-        ///  permet la téléportation sur l'axe des y
+        ///  permet la tï¿½lï¿½portation sur l'axe des y
         if (transform.position.y < -(M.hauteur - 1) * 0.24f)
         {
             transform.position = new Vector2(transform.position.x, 0);
