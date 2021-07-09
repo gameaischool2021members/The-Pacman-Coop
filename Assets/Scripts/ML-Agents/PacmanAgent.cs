@@ -5,7 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using UnityEngine.SceneManagement;
-
+using System;
 
 public class PacmanAgent : Agent
 {
@@ -118,9 +118,12 @@ public class PacmanAgent : Agent
         MinObservation(sensor, API.GetLargePellets());
         
         //player +2
-        sensor.AddObservation(this.transform.localPosition);
-        sensor.AddObservation(this.transform.localRotation);
+        sensor.AddObservation(RoundVec(this.transform.localPosition, 2));
+        sensor.AddObservation(RoundVec(this.transform.localRotation.eulerAngles, 0));
         //TODO: observations cant change
+
+        AddTransformObservations(sensor, API.GetWalls());
+        MinTransformObservation(sensor, API.GetWalls());
     }
 
     void MinObservation(VectorSensor sensor, List<GameObject> lst)
@@ -140,8 +143,8 @@ public class PacmanAgent : Agent
             }
         }
 
-        sensor.AddObservation(min);
-        sensor.AddObservation(dir);
+        sensor.AddObservation(RoundToDecimalPlace(min, 2));
+        sensor.AddObservation(RoundVec(dir, 2));
     }
 
     void AddObservations(VectorSensor sensor, List<GameObject> lst, bool active = false)
@@ -151,14 +154,63 @@ public class PacmanAgent : Agent
             foreach (GameObject p in lst)
             {
                 // sensor.AddObservation(p.transform.localPosition);
-                sensor.AddObservation((transform.position - p.transform.position).magnitude);
-                sensor.AddObservation((p.transform.position - transform.position).normalized);
+                sensor.AddObservation(RoundToDecimalPlace((transform.position - p.transform.position).magnitude, 1));
+                sensor.AddObservation(RoundVec((p.transform.position - transform.position).normalized, 1));
                 if (active)
                 {
-                    sensor.AddObservation(p.transform.position - transform.position);
+                    sensor.AddObservation(RoundVec(p.transform.position - transform.position, 1));
                     sensor.AddObservation(p.activeSelf);
                 }
             }
+        }
+    }
+
+    void AddTransformObservations(VectorSensor sensor, List<Transform> lst)
+    {
+            foreach (Transform t in lst)
+            {
+                // sensor.AddObservation(p.transform.localPosition);
+                sensor.AddObservation(RoundToDecimalPlace((transform.position - t.position).magnitude, 1));
+                sensor.AddObservation(RoundVec((t.position - transform.position).normalized, 1));
+                sensor.AddObservation(RoundVec(t.position - transform.position, 1));
+            }
+    }
+
+    void MinTransformObservation(VectorSensor sensor, List<Transform> lst)
+    {
+        float min = float.MaxValue;
+        Vector2 dir = Vector2.zero;
+        foreach (Transform t in lst)
+        {
+            float distance = (t.position - transform.position).magnitude;
+            if (distance < min)
+            {
+                min = distance;
+                dir = (t.position - transform.position).normalized;
+            }
+        }
+
+        sensor.AddObservation(RoundToDecimalPlace(min, 2));
+        sensor.AddObservation(RoundVec(dir, 2));
+    }
+
+    Vector3 RoundVec(Vector3 vec, int digits)
+    {
+        return new Vector3(RoundToDecimalPlace(vec.x, digits), RoundToDecimalPlace(vec.y, digits), RoundToDecimalPlace(vec.z, digits));
+    }
+
+    float RoundToDecimalPlace(float number, int decimalPlaces)
+    {
+        float pow = Mathf.Pow(10, decimalPlaces);
+        return Mathf.Round((number * pow) / pow);
+    }
+
+    IEnumerator Move(Vector2 dir)
+    {
+        while (true)
+        {
+            pacmanBody.velocity = dir;
+            yield return null;
         }
     }
 
@@ -178,8 +230,12 @@ public class PacmanAgent : Agent
         //Animation
         GetComponent<Animator>().SetFloat("DirX", directionX);
         GetComponent<Animator>().SetFloat("DirY", directionY);
+
         // Apply the action results to move the Agent
-        pacmanBody.velocity = new Vector2((speed * directionX) * 0.24f, (speed * directionY) * 0.24f);
+        StopAllCoroutines();
+        StartCoroutine(Move(new Vector2((speed * directionX) * 0.24f, (speed * directionY) * 0.24f)));
+
+        // pacmanBody.velocity = new Vector2((speed * directionX) * 0.24f, (speed * directionY) * 0.24f);
 
         if (M == null)
         {
@@ -259,18 +315,18 @@ public class PacmanAgent : Agent
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
 
-        if (Input.GetKey("up")) {
+        if (Input.GetKeyDown("up")) {
             discreteActionsOut[0] = 1; 
         }
-        else if (Input.GetKey("down"))
+        else if (Input.GetKeyDown("down"))
         {
             discreteActionsOut[0] = 2;
         }
-        else if (Input.GetKey("left"))
+        else if (Input.GetKeyDown("left"))
         {
             discreteActionsOut[0] = 3;
         }
-        else if (Input.GetKey("right"))
+        else if (Input.GetKeyDown("right"))
         {
             discreteActionsOut[0] = 4;
         }
