@@ -1,4 +1,9 @@
-# pacman-unity
+# The-pacman-coop
+
+## Demonstration Video
+[![The Pacman Coop Video](http://img.youtube.com/vi/iXJIyqPw3hk/0.jpg)](https://www.youtube.com/watch?v=iXJIyqPw3hk "The Pacman Coop Video")
+
+## Pacman-unity
 Pacman with map editor developed with Unity during my studies (Faculté des sciences de Montpellier - Licence 2).
 
 ### Game
