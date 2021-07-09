@@ -10,8 +10,7 @@ using UnityEngine.SceneManagement;
 public class GhostAgent : Agent
 {
     private Pacman API = null;
-    private TileMatrix M = null;
-
+    
     public string CollidedActionAgent { private get; set; } = "";
 
     private List<Vector2> initialPositionGhosts = null;
@@ -21,6 +20,9 @@ public class GhostAgent : Agent
     private float rewardWinning = 500.0f;
     private float penaltyGhost = -200.0f;
     private float penaltyDefault = -10.0f;
+
+    private Vector2 tampon;
+    private TileMatrix M = null;
 
     [SerializeField]
     private Rigidbody2D ghostBody = null;
@@ -92,11 +94,65 @@ public class GhostAgent : Agent
         else if (movement == 3) { directionX = -1; }
         else if (movement == 4) { directionX = 1; }
 
- 
+        if (M == null)
+        {
+            M = GameObject.Find("LevelsGenerator").GetComponent<LevelsGenerator>().M;
+        }
+
+        VerifyTeleportationMap();
+
         // Apply the action results to move the Agent
         ghostBody.velocity = new Vector2((speed * directionX) * 0.24f, (speed * directionY) * 0.24f);
+
+        if (CollidedActionAgent == "ghostDead")
+        {
+            SetReward(penaltyGhost);
+            CollidedActionAgent = "";
+        }
+
+        else if (CollidedActionAgent == "ghostAlive")
+        {
+            SetReward(rewardWinning);
+            CollidedActionAgent = "";
+        }
+        else
+        {
+            SetReward(penaltyDefault); //state of game is changing
+        }
     }
 
+    void VerifyTeleportationMap()
+    {
+
+
+        ///  permet la téléportation sur l'axe des x
+        /// </summary>
+        if (transform.position.x > (M.largeur - 1) * 0.24f)
+        {
+            transform.position = new Vector2(0, transform.position.y);
+            tampon = transform.position;
+        }
+        if (transform.position.x < 0)
+        {
+            transform.position = new Vector2((M.largeur - 1) * 0.24f, transform.position.y);
+            tampon = transform.position;
+
+        }
+        /// <summary>
+        ///  permet la téléportation sur l'axe des y
+        /// </summary>
+        if (transform.position.y < -(M.hauteur - 1) * 0.24f)
+        {
+            transform.position = new Vector2(transform.position.x, 0);
+            tampon = transform.position;
+
+        }
+        if (transform.position.y > 0)
+        {
+            transform.position = new Vector2(transform.position.x, -(M.hauteur - 1) * 0.24f);
+            tampon = transform.position;
+        }
+    }
 
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -119,23 +175,10 @@ public class GhostAgent : Agent
             foreach (GameObject p in lst)
                 sensor.AddObservation(p.transform.localPosition);
         }
+
   
 
-        if (CollidedActionAgent == "ghostDead")
-        {
-            SetReward(penaltyGhost);
-            CollidedActionAgent = "";
-        }
-        else if (CollidedActionAgent == "ghostAlive")
-        {
-            SetReward(rewardWinning);
-            CollidedActionAgent = "";
-            EndEpisode();
-        }
-        else
-        {
-            SetReward(penaltyDefault); //state of game is changing
-        }
+       
 
     }
 
