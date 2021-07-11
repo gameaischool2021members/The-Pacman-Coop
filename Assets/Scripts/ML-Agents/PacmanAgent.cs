@@ -160,6 +160,11 @@ public class PacmanAgent : Agent
                 {
                     sensor.AddObservation(RoundVec(p.transform.position - transform.position, 1));
                     sensor.AddObservation(p.activeSelf);
+                    
+                    if (p.tag.Contains("phantome"))
+                    {
+                        sensor.AddObservation((int) p.GetComponent<collisionPhantome>().state);
+                    }
                 }
             }
         }

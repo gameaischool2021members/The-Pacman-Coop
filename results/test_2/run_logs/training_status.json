@@ -1,0 +1,353 @@
+{
+    "PacmanAgent": {
+        "checkpoints": [
+            {
+                "steps": 9988,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-9988.onnx",
+                "reward": -35.51150895140665,
+                "creation_time": 1625909429.519901,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-9988.pt"
+                ]
+            },
+            {
+                "steps": 19980,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-19980.onnx",
+                "reward": 36.352785145888596,
+                "creation_time": 1625910751.3805702,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-19980.pt"
+                ]
+            },
+            {
+                "steps": 29986,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-29986.onnx",
+                "reward": 104.84033613445378,
+                "creation_time": 1625912074.7593338,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-29986.pt"
+                ]
+            },
+            {
+                "steps": 31234,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-31234.onnx",
+                "reward": 209.375,
+                "creation_time": 1625912239.953351,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-31234.pt"
+                ]
+            },
+            {
+                "steps": 39988,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-39988.onnx",
+                "reward": 212.11858974358975,
+                "creation_time": 1625913478.234577,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-39988.pt"
+                ]
+            },
+            {
+                "steps": 49992,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-49992.onnx",
+                "reward": 313.24652777777777,
+                "creation_time": 1625914797.523901,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-49992.pt"
+                ]
+            },
+            {
+                "steps": 58790,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-58790.onnx",
+                "reward": 457.9737991266376,
+                "creation_time": 1625915965.885372,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-58790.pt"
+                ]
+            },
+            {
+                "steps": 58790,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-58790.onnx",
+                "reward": null,
+                "creation_time": 1625916159.206775,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-58790.pt"
+                ]
+            },
+            {
+                "steps": 59980,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-59980.onnx",
+                "reward": 424.12820512820514,
+                "creation_time": 1625916605.216738,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-59980.pt"
+                ]
+            },
+            {
+                "steps": 69988,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-69988.onnx",
+                "reward": 520.4375,
+                "creation_time": 1625917922.931434,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-69988.pt"
+                ]
+            },
+            {
+                "steps": 79975,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-79975.onnx",
+                "reward": 737.2105263157895,
+                "creation_time": 1625919236.7588742,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-79975.pt"
+                ]
+            },
+            {
+                "steps": 89992,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-89992.onnx",
+                "reward": 806.1538461538462,
+                "creation_time": 1625920551.509969,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-89992.pt"
+                ]
+            },
+            {
+                "steps": 99957,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-99957.onnx",
+                "reward": 786.5,
+                "creation_time": 1625921882.1780639,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-99957.pt"
+                ]
+            },
+            {
+                "steps": 109962,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-109962.onnx",
+                "reward": 1013.8032128514056,
+                "creation_time": 1625923191.666959,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-109962.pt"
+                ]
+            },
+            {
+                "steps": 119987,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-119987.onnx",
+                "reward": 1280.8975609756098,
+                "creation_time": 1625924534.481708,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-119987.pt"
+                ]
+            },
+            {
+                "steps": 129903,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-129903.onnx",
+                "reward": 1711.38,
+                "creation_time": 1625925813.2141252,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-129903.pt"
+                ]
+            },
+            {
+                "steps": 139977,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-139977.onnx",
+                "reward": 2099.6017699115046,
+                "creation_time": 1625927093.217804,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-139977.pt"
+                ]
+            },
+            {
+                "steps": 149881,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-149881.onnx",
+                "reward": 2368.366666666667,
+                "creation_time": 1625928381.117032,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-149881.pt"
+                ]
+            },
+            {
+                "steps": 159914,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-159914.onnx",
+                "reward": 2433.070588235294,
+                "creation_time": 1625929650.2303638,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-159914.pt"
+                ]
+            },
+            {
+                "steps": 169983,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-169983.onnx",
+                "reward": 2493.9113924050635,
+                "creation_time": 1625930934.6216168,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-169983.pt"
+                ]
+            },
+            {
+                "steps": 179904,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-179904.onnx",
+                "reward": 2479.5844155844156,
+                "creation_time": 1625932194.927105,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-179904.pt"
+                ]
+            },
+            {
+                "steps": 189957,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-189957.onnx",
+                "reward": 2685.943661971831,
+                "creation_time": 1625933484.290967,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-189957.pt"
+                ]
+            },
+            {
+                "steps": 199901,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-199901.onnx",
+                "reward": 2982.5692307692307,
+                "creation_time": 1625934767.0159109,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-199901.pt"
+                ]
+            },
+            {
+                "steps": 209972,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-209972.onnx",
+                "reward": 2866.1,
+                "creation_time": 1625936040.474947,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-209972.pt"
+                ]
+            },
+            {
+                "steps": 219944,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-219944.onnx",
+                "reward": 3279.688524590164,
+                "creation_time": 1625937316.32214,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-219944.pt"
+                ]
+            },
+            {
+                "steps": 229948,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-229948.onnx",
+                "reward": 3335.0163934426228,
+                "creation_time": 1625938621.416167,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-229948.pt"
+                ]
+            },
+            {
+                "steps": 231765,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-231765.onnx",
+                "reward": 3218.0,
+                "creation_time": 1625938836.233693,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-231765.pt"
+                ]
+            },
+            {
+                "steps": 239987,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-239987.onnx",
+                "reward": 3296.3733333333334,
+                "creation_time": 1625950938.4938629,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-239987.pt"
+                ]
+            },
+            {
+                "steps": 249856,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-249856.onnx",
+                "reward": 3315.4533333333334,
+                "creation_time": 1625952258.923351,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-249856.pt"
+                ]
+            },
+            {
+                "steps": 259944,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-259944.onnx",
+                "reward": 3819.264705882353,
+                "creation_time": 1625953621.980181,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-259944.pt"
+                ]
+            },
+            {
+                "steps": 269968,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-269968.onnx",
+                "reward": 3689.0,
+                "creation_time": 1625954954.069108,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-269968.pt"
+                ]
+            },
+            {
+                "steps": 279944,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-279944.onnx",
+                "reward": 3960.9545454545455,
+                "creation_time": 1625956285.34438,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-279944.pt"
+                ]
+            },
+            {
+                "steps": 289993,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-289993.onnx",
+                "reward": 4078.2380952380954,
+                "creation_time": 1625957656.0343502,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-289993.pt"
+                ]
+            },
+            {
+                "steps": 299947,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-299947.onnx",
+                "reward": 4269.35593220339,
+                "creation_time": 1625959018.492985,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-299947.pt"
+                ]
+            },
+            {
+                "steps": 309964,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-309964.onnx",
+                "reward": 4032.9666666666667,
+                "creation_time": 1625960308.1400902,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-309964.pt"
+                ]
+            },
+            {
+                "steps": 319949,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-319949.onnx",
+                "reward": 4277.166666666667,
+                "creation_time": 1625961624.783544,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-319949.pt"
+                ]
+            },
+            {
+                "steps": 320582,
+                "file_path": "results/test_2/PacmanAgent/PacmanAgent-320582.onnx",
+                "reward": 4286.266666666666,
+                "creation_time": 1625961701.074059,
+                "auxillary_file_paths": [
+                    "results/test_2/PacmanAgent/PacmanAgent-320582.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 320582,
+            "file_path": "results/test_2/PacmanAgent.onnx",
+            "reward": 4286.266666666666,
+            "creation_time": 1625961701.074059,
+            "auxillary_file_paths": [
+                "results/test_2/PacmanAgent/PacmanAgent-320582.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.8.1"
+    }
+}
